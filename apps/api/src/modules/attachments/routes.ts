@@ -53,7 +53,10 @@ export async function registerAttachmentRoutes(app: FastifyInstance): Promise<vo
     if (!file) throw app.httpErrors.badRequest("A file is required");
     const extension = path.extname(file.filename).toLowerCase();
     const validExtensions = allowed.get(file.mimetype);
-    if (!validExtensions?.has(extension)) throw app.httpErrors.unsupportedMediaType("File type is not allowed");
+    if (!validExtensions?.has(extension)) {
+      await file.file.resume();
+      throw app.httpErrors.unsupportedMediaType("File type is not allowed");
+    }
     const buffer = await file.toBuffer();
     if (!buffer.length) throw app.httpErrors.badRequest("Empty files are not allowed");
     const sha256 = crypto.createHash("sha256").update(buffer).digest("hex");
