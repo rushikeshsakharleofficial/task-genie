@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 COPY apps/api/package.json apps/api/package.json
 COPY apps/web/package.json apps/web/package.json
-RUN npm ci
+RUN rm -f package-lock.json && npm install --legacy-peer-deps
 
 FROM dependencies AS builder
 WORKDIR /app
