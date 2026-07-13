@@ -1,0 +1,31 @@
+{
+  "name": "taskgenie",
+  "version": "0.4.0",
+  "private": true,
+  "description": "Single-VPS, self-hosted task and project management platform with a production-ready web interface.",
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev:api": "npm run dev --workspace @taskgenie/api",
+    "dev:web": "npm run dev --workspace @taskgenie/web",
+    "build": "npm run build --workspace @taskgenie/api && npm run build --workspace @taskgenie/web",
+    "build:api": "npm run build --workspace @taskgenie/api",
+    "build:web": "npm run build --workspace @taskgenie/web",
+    "start:api": "npm run start --workspace @taskgenie/api",
+    "start:web": "npm run start --workspace @taskgenie/web",
+    "typecheck": "npm run typecheck --workspace @taskgenie/api && npm run typecheck --workspace @taskgenie/web",
+    "test": "npm run test --workspace @taskgenie/api",
+    "db:generate": "npm run db:generate --workspace @taskgenie/api",
+    "db:migrate": "npm run db:migrate --workspace @taskgenie/api",
+    "db:studio": "npm run db:studio --workspace @taskgenie/api",
+    "db:seed": "npm run db:seed --workspace @taskgenie/api",
+    "start:worker": "npm run start:worker --workspace @taskgenie/api",
+    "check": "npm run typecheck && npm test && npm run build",
+    "smoke": "./scripts/smoke-test.sh",
+    "db:rescan-attachments": "npm run db:rescan-attachments --workspace @taskgenie/api"
+  }
+}
